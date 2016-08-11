@@ -1,0 +1,3 @@
+bin/* usr/share/upsalter/bin/
+src/* usr/share/upsalter/src/
+vendor/* usr/share/upsalter/vendor/

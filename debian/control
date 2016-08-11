@@ -1,0 +1,15 @@
+Source: upsalter
+Section: unknown
+Priority: optional
+Maintainer: boddigr <gregory@siwhine.net>
+Build-Depends: debhelper (>=9)
+Standards-Version: 3.9.8
+Homepage: https://github.com/gboddin/upsalter 
+Vcs-Git: https://github.com/gboddin/upsalter
+Vcs-Browser: https://github.com/gboddin/upsalter
+
+Package: upsalter
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, php-cli
+Description: Create chroot Saltstack minion
+ Creates various linux chroot minions for saltstack

@@ -39,3 +39,7 @@ $RECYCLE.BIN/
 *.lnk
 
 .idea
+debian/files
+debian/*.log
+debian/upsalter
+debian/debhelper-build-stamp
