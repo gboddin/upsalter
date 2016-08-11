@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php
+require dirname(__DIR__).DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'autoload.php';
+
+use Symfony\Component\Console\Application;
+
+$application = new Application();
+
+$application->setName('upsalter');
+
+$application->add(
+  new Upsalter\Cli\ChrootBuild()
+);
+
+$application->run();
