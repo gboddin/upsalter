@@ -32,10 +32,9 @@ class ChrootBuild extends Command
 
         $distro = $distroManager->getDistro($distributionName,$distributionVersion);
 
-        $tempdir = $distro->getTempDir();
-        $output->writeln('Downloading ROOTFS in '.$tempdir);
-        $distro->buildRoot($tempdir);
-        rename($tempdir,$input->getArgument('target'));
+        $distro->build(
+            $input->getArgument('target')
+        );
 
     }
 }
