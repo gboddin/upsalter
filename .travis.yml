@@ -10,7 +10,7 @@ env:
 install:
   - composer install
 script:
-  - "./bin/upsalter ${DISTRO} ${VERSION} ${DISTRO}-${VERSION}-rootfs-salted.tar.bz2"
+  - "./bin/upsalter chroot:build ${DISTRO} ${VERSION} ${DISTRO}-${VERSION}-rootfs-salted.tar.bz2"
 before_deploy:
   - export RELEASE_PKG_FILE=$(ls *.bz2)
   - echo "deploying $RELEASE_PKG_FILE to GitHub releases"
