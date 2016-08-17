@@ -8,14 +8,34 @@ namespace Upsalter\Distribution {
 
         const ROOTFS_URL = 'https://github.com/gboddin/linux-rootfs/releases/download/latest/centos-6.7.tar.bz2';
 
+        protected $epelEnabled = false;
+
         public function installSaltMinion()
         {
             $this->enableEpel();
+            $this->prootRun('rpm -Uvh https://repo.saltstack.com/yum/redhat/salt-repo-latest-1.el6.noarch.rpm');
             $this->prootRun('yum -y install salt-minion');
         }
 
         public function installSupervisor()
         {
+            $this->enableEpel();
+            $this->prootRun('yum install supervisor -y');
+        }
+
+        public function enableEpel()
+        {
+            if(!$this->epelEnabled)
+                $this->prootRun('rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm');
+            $this->epelEnabled = true;
+        }
+
+        public function init() {
+
+        }
+
+        public function clean() {
+            $this->prootRun('yum clean all');
         }
 
         public function getRootFsUrl()
@@ -28,7 +48,6 @@ namespace Upsalter\Distribution {
             return array(
                 'centos'
             );
-            // TODO: Implement getAliases() method.
         }
 
         public function getVersions()
@@ -36,12 +55,7 @@ namespace Upsalter\Distribution {
             return array(
               6
             );
-            // TODO: Implement getVersion() method.
         }
 
-        public function enableEpel()
-        {
-            $this->prootRun('rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm');
-        }
     }
 }

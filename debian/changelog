@@ -1,3 +1,15 @@
+upsalter (0.1.3) unstable; urgency=medium
+
+  * Release 0.1.3
+
+ -- boddigr <gregory@siwhine.net>  Thu, 17 Aug 2016 15:42:16 +0200
+
+upsalter (0.1.2) unstable; urgency=medium
+
+  * Centos6 salt installed
+
+ -- boddigr <gregory@siwhine.net>  Thu, 17 Aug 2016 14:42:16 +0200
+
 upsalter (0.1-1) unstable; urgency=medium
 
   * Initial release 

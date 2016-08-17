@@ -1,0 +1,25 @@
+language: php
+php:
+- 7.0
+env:
+  matrix:
+  - DISTRO=centos VERSION=6
+  - DISTRO=centos VERSION=7
+  - DISTRO=ubuntu VERSION=trusty
+  - DISTRO=ubuntu VERSION=xenial
+install:
+  - composer install
+script:
+  - "./bin/upsalter ${DISTRO} ${VERSION} ${DISTRO}-${VERSION}-rootfs-salted.tar.bz2"
+before_deploy:
+  - export RELEASE_PKG_FILE=$(ls *.bz2)
+  - echo "deploying $RELEASE_PKG_FILE to GitHub releases"
+
+deploy:
+  file_glob: true
+  file: "${RELEASE_PKG_FILE}"
+  on:
+    tags: true
+  provider: releases
+  api_key:
+    secure: v/sEFwjOa6wjs5DIKOFIE1QCTpqbNWtnylZl4vyWb4IWO9o7e7OoTHrgR3nCHCMLE5eEB59Ulj2rt3e7EwrUdX8Z8v4zxPKnm/cigGhgAfszaPdlTG/X2atoCwf2CLv/cnD+0v5Z614t/+DKAmEdFSrmnTJ3nt8mU5CXB2pZ7L+UN7J525jN6YViXQBtFXeACUwvLe8psFoeZKty3R/FwTT1GX5USURrOs9FHY95KRkr4Xpq6RBTqFaeLOC61DfCXDI8wj/BEXIhoszqbNHtaguu8+FHYRPhrhWA7Hq8iokFnS2skdLtmiRMcblZ4d6GCiHP1k7Zpx/COFyUmwv/TZtG0acMUqGnoAz4ISXosp3SAiCBPbrPzq1LG4RkZ4SEgJv0+UOq9Vy86eZFc81PIQMKJgB0Q6w395yG0KmSytdLkJuqOwE0EOmclKhccMjAo+ECZ4KNF1rD3GJwxxYEfzUz46B4rJfHMrTZZqyrApyqaFjj/tjKCLGwRBbevxY4desg6lEzpR4V8hmJiJZf7UomqWKjncBc0xSIe50riArTG30AFyU7Hc7WMFsZxajt+wh8hbfuUc/YYd48EvkXeHWPd/P8U7+YOmY3oSoC25FHZB4NwtiCjTlfqtkHucANGI2kSt4j8HRiR7P4g5gpYFX0daiV10XIB8ZZoOaBeDM=

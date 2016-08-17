@@ -42,6 +42,15 @@ namespace Upsalter {
          */
         abstract public function installSaltMinion();
 
+        /**
+         * @return mixed
+         */
+        abstract public function init();
+
+        /**
+         * @return mixed
+         */
+        abstract public function clean();
 
         /**
          * @param $target
@@ -64,10 +73,14 @@ namespace Upsalter {
                  */
                 $this->downloadProot();
 
+                $this->init();
+
                 $this->installSaltMinion();
                 $this->installSupervisor();
 
+                $this->clean();
                 $this->package($this->rootDir, $target);
+
             } catch (\Exception $e) {
                 var_dump($this);
                 throw $e;
@@ -76,7 +89,8 @@ namespace Upsalter {
 
         public function prootRun($cmd)
         {
-            return passthru($this->rootDir.DIRECTORY_SEPARATOR.'proot -S '.escapeshellarg($this->rootDir).' '.$cmd, $rc);
+            return passthru('PATH=/bin:/sbin:/usr/bin:/usr/sbin '.
+                $this->rootDir.DIRECTORY_SEPARATOR.'proot -S '.escapeshellarg($this->rootDir).' sh -axc '.escapeshellarg($cmd), $rc);
         }
 
         /**
@@ -91,15 +105,18 @@ namespace Upsalter {
 
             /** @noinspection MkdirRaceConditionInspection */
             mkdir($target);
-            exec('tar -xjvC '.escapeshellarg($target).' -f '.escapeshellarg($package), $output, $rc);
+            exec('tar --exclude="dev/*" -xjvC '.escapeshellarg($target).' -f '.escapeshellarg($package), $output, $rc);
             if ($rc > 0) {
                 throw new \Exception('Package failed : '.PHP_EOL.implode(PHP_EOL, $output));
             }
+            // Fix bad permissions :
+            exec('find '.escapeshellarg($target).' -perm 000 -exec chmod 400 {} \;');
         }
 
         public function package($dir, $target)
         {
-            exec('tar cjC '.escapeshellarg($dir).' . > '.escapeshellarg($target), $output, $rc);
+            exec('tar -cjC '.
+                escapeshellarg($dir).' . > '.escapeshellarg($target), $output, $rc);
             if ($rc > 0) {
                 throw new \Exception('Package failed : '.PHP_EOL.implode(PHP_EOL, $output));
             }

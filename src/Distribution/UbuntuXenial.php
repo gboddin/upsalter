@@ -3,9 +3,9 @@ namespace Upsalter\Distribution {
 
     use Upsalter\BaseDistribution;
 
-    class UbuntuTrusty extends BaseDistribution
+    class UbuntuXenial extends BaseDistribution
     {
-        const ROOTFS_URL = 'https://github.com/gboddin/linux-rootfs/releases/download/latest/ubuntu-trusty.tar.bz2';
+        const ROOTFS_URL = 'https://github.com/gboddin/linux-rootfs/releases/download/latest/ubuntu-xenial.tar.bz2';
 
         public function getRootFsUrl()
         {
@@ -41,14 +41,14 @@ namespace Upsalter\Distribution {
         public function getVersions()
         {
             return array(
-              '14.04','trusty'
+              '16.04','xenial'
             );
         }
 
         public function enableSaltRepo() {
             $this->prootRun('apt-get install wget -y');
-            $this->prootRun('wget -O - https://repo.saltstack.com/apt/ubuntu/14.04/amd64/latest/SALTSTACK-GPG-KEY.pub |  apt-key add -');
-            $this->prootRun('echo deb http://repo.saltstack.com/apt/ubuntu/14.04/amd64/latest trusty main >> /etc/apt/sources.list.d/saltstack.list');
+            $this->prootRun('wget -O - https://repo.saltstack.com/apt/ubuntu/16.04/amd64/latest/SALTSTACK-GPG-KEY.pub |  apt-key add -');
+            $this->prootRun('echo deb http://repo.saltstack.com/apt/ubuntu/16.04/amd64/latest xenial main >> /etc/apt/sources.list.d/saltstack.list');
             $this->prootRUn('apt-get update');
         }
     }
