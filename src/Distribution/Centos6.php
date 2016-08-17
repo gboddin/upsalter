@@ -3,20 +3,23 @@ namespace Upsalter\Distribution {
 
     use Upsalter\BaseDistribution;
 
-    class Centos6 extends BaseDistribution {
+    class Centos6 extends BaseDistribution
+    {
 
         const ROOTFS_URL = 'https://github.com/gboddin/linux-rootfs/releases/download/latest/centos-6.7.tar.bz2';
 
-        public function installSaltMinion() {
+        public function installSaltMinion()
+        {
             $this->enableEpel();
             $this->prootRun('yum -y install salt-minion');
         }
 
-        public function installSupervisor() {
-
+        public function installSupervisor()
+        {
         }
 
-        public function getRootFsUrl() {
+        public function getRootFsUrl()
+        {
             return self::ROOTFS_URL;
         }
 
@@ -36,7 +39,8 @@ namespace Upsalter\Distribution {
             // TODO: Implement getVersion() method.
         }
 
-        public function enableEpel() {
+        public function enableEpel()
+        {
             $this->prootRun('rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm');
         }
     }

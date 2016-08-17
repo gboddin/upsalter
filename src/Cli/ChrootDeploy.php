@@ -9,7 +9,6 @@ use Symfony\Component\Console\Input\InputOption;
 use \Symfony\Component\Console\Output\OutputInterface;
 use Upsalter\DistributionManager;
 
-
 class ChrootBuild extends Command
 {
     protected function configure()
@@ -21,12 +20,11 @@ class ChrootBuild extends Command
             ->setDescription('Deploys new chroot package (tar.gz)')
             ->addArgument('package', InputArgument::REQUIRED, 'Which distribution to build')
             ->addArgument('destination', InputArgument::REQUIRED, 'Server to deploy to (user@server:containerdirectory)')
-            ->addArgument('master',InputArgument::REQUIRED,'Salt master')
-            ->addArgument('id',InputArgument::REQUIRED,'Minion id');
+            ->addArgument('master', InputArgument::REQUIRED, 'Salt master')
+            ->addArgument('id', InputArgument::REQUIRED, 'Minion id');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
     }
 }

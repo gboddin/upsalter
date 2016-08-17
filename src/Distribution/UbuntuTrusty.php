@@ -3,18 +3,19 @@ namespace Upsalter\Distribution {
 
     use Upsalter\BaseDistribution;
 
-    class UbuntuTrusty extends BaseDistribution {
+    class UbuntuTrusty extends BaseDistribution
+    {
 
-        public function getRootFsUrl() {
-
+        public function getRootFsUrl()
+        {
         }
 
-        public function installSaltMinion() {
-
+        public function installSaltMinion()
+        {
         }
 
-        public function installSupervisor() {
-
+        public function installSupervisor()
+        {
         }
 
         public function getAliases()
@@ -35,6 +36,5 @@ namespace Upsalter\Distribution {
         {
             // TODO: Implement buildRoot() method.
         }
-
     }
 }

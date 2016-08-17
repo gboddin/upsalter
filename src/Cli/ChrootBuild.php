@@ -9,7 +9,6 @@ use Symfony\Component\Console\Input\InputOption;
 use \Symfony\Component\Console\Output\OutputInterface;
 use Upsalter\DistributionManager;
 
-
 class ChrootBuild extends Command
 {
     protected function configure()
@@ -21,7 +20,7 @@ class ChrootBuild extends Command
             ->setDescription('Creates new chroot package (tar.gz)')
             ->addArgument('distribution', InputArgument::REQUIRED, 'Which distribution to build')
             ->addArgument('version', InputArgument::REQUIRED, 'Which distribution version to build')
-            ->addArgument('target',InputArgument::REQUIRED,'Target tarball');
+            ->addArgument('target', InputArgument::REQUIRED, 'Target tarball');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -30,11 +29,10 @@ class ChrootBuild extends Command
         $distributionName = $input->getArgument('distribution');
         $distributionVersion = $input->getArgument('version');
 
-        $distro = $distroManager->getDistro($distributionName,$distributionVersion);
+        $distro = $distroManager->getDistro($distributionName, $distributionVersion);
 
         $distro->build(
             $input->getArgument('target')
         );
-
     }
 }
