@@ -82,6 +82,14 @@ class ChrootDeploy extends Command
             throw new\Exception('Manage script '.$minionId.' deploy failed');
         }
 
+        $cmd = 'chmod 700 '.escapeshellarg($finalLocation.DIRECTORY_SEPARATOR.'manage');
+        $cmd = 'ssh -l '.escapeshellarg($user).' '.escapeshellarg($server).' -oBatchMode=yes '.escapeshellarg($cmd);
+        exec($cmd,$cmd,$rc);
+        if($rc > 0) {
+            throw new\Exception('Manage chmod failed '.$minionId.' - deploy failed');
+        }
+
+
         $cmd = 'scp '.escapeshellarg(APP_DIR.DIRECTORY_SEPARATOR.'resources'.DIRECTORY_SEPARATOR.'supervisor-main.conf').' '.escapeshellarg(
                 $user.'@'.$server.':'.$finalLocation.DIRECTORY_SEPARATOR.'etc/supervisor/supervisord.conf');
         exec($cmd,$cmd,$rc);
