@@ -17,10 +17,10 @@ class ChrootBuild extends Command
             // the name of the command (the part after "bin/console")
             ->setName('chroot:build')
             // the short description shown while running "php bin/console list"
-            ->setDescription('Creates new chroot package (tar.gz)')
+            ->setDescription('Creates new chroot package (tar.bz2)')
             ->addArgument('distribution', InputArgument::REQUIRED, 'Which distribution to build')
             ->addArgument('version', InputArgument::REQUIRED, 'Which distribution version to build')
-            ->addArgument('target', InputArgument::REQUIRED, 'Target tarball');
+            ->addArgument('target', InputArgument::REQUIRED, 'Target tarball (tar.bz2)');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

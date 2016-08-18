@@ -17,12 +17,12 @@ class ChrootDeploy extends Command
             // the name of the command (the part after "bin/console")
             ->setName('chroot:deploy')
             // the short description shown while running "php bin/console list"
-            ->setDescription('Deploys new chroot package (tar.gz)')
+            ->setDescription('Deploys new chroot package (tar.bz2)')
             ->addArgument('package', InputArgument::REQUIRED, 'Which distribution to build')
-            ->addArgument('user', InputArgument::REQUIRED, 'Server to deploy to (user@server:containerdirectory)')
-            ->addArgument('server', InputArgument::REQUIRED, 'Server to deploy to (user@server:containerdirectory)')
-            ->addArgument('location', InputArgument::REQUIRED, 'Directory storing containers')
-            ->addArgument('master', InputArgument::REQUIRED, 'Salt master')
+            ->addArgument('user', InputArgument::REQUIRED, 'Remote user')
+            ->addArgument('server', InputArgument::REQUIRED, 'Server to deploy to')
+            ->addArgument('location', InputArgument::REQUIRED, 'Remote directory storing containers')
+            ->addArgument('master', InputArgument::REQUIRED, 'Salt master IP/DNS')
             ->addArgument('id', InputArgument::REQUIRED, 'Minion id')
             ->addOption('no-register-key','R',InputOption::VALUE_NONE,'Disable register trough local salt-key')
             ->addOption('skip-start','S',InputOption::VALUE_NONE,'Skip startup of minion (implies -R)');
@@ -99,7 +99,7 @@ class ChrootDeploy extends Command
         $tempMinionConfigFile = tempnam(sys_get_temp_dir(),'salt-minion');
 
         file_put_contents($tempMinionConfigFile,'master: '.$master.PHP_EOL,FILE_APPEND);
-        file_put_contents($tempMinionConfigFile,'grains: '.$finalLocation.PHP_EOL,FILE_APPEND);
+        file_put_contents($tempMinionConfigFile,'grains: '.PHP_EOL,FILE_APPEND);
         file_put_contents($tempMinionConfigFile,'  container_path: '.$finalLocation.PHP_EOL,FILE_APPEND);
         file_put_contents($tempMinionConfigFile,'  container_admin_user: '.$user.PHP_EOL,FILE_APPEND);
         file_put_contents($tempMinionConfigFile,'  container_type: upsalter'.PHP_EOL,FILE_APPEND);
@@ -120,6 +120,19 @@ class ChrootDeploy extends Command
         }
 
         $output->writeln('<info>Container configuration for '.$minionId.' deployed</info>');
+
+        if(!$skipStart) {
+            $cmd = escapeshellarg($finalLocation.'/manage').' start-minion';
+            $cmd = 'ssh -l '.escapeshellarg($user).' '.escapeshellarg($server).' -oBatchMode=yes '.escapeshellarg($cmd);
+            exec($cmd,$cmd,$rc);
+            if($rc > 0) {
+                throw new\Exception('Error starting'.$minionId);
+            }
+            $output->writeln('<info>Minion started, please accept key trough salt-key</info>');
+            if(!$skipRegister) {
+                //register logic here !
+            }
+        }
 
     }
 }

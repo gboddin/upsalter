@@ -24,6 +24,7 @@ namespace Upsalter\Distribution {
             $this->prootRun('easy_install --upgrade supervisor');
             //enabling debian directory structure :
             $this->prootRun('mkdir -p /etc/supervisor/conf.d');
+            $this->prootRun('mkdir -p /var/log/supervisor');
         }
 
         public function enableEpel()

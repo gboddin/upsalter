@@ -1,4 +1,4 @@
-# WIP WIP WIP NOTHING READY YET - UPSALTER
+# UPSALTER
 
 ## Introduction
 
@@ -16,8 +16,8 @@ It will build a rootfs image of your favorite distribution with salt installed
 
 ### Deploy chroot image
 
-It will deploy your chroot package to a remote server and register it to your salt server
+It will deploy your chroot package to a remote server and start salt-minion.
 
 ```sh
-./bin/upsalter chroot:deploy centos6.tar.gz user@server:directory my-container-id
+./bin/upsalter chroot:deploy centos6.tar.gz user server directory my-container-id
 ```
