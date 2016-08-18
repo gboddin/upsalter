@@ -21,7 +21,7 @@ namespace Upsalter\Distribution {
         {
             $this->enableEpel();
             $this->prootRun('yum install python-pip -y');
-            $this->prootRun('pip install supervisor');
+            $this->prootRun('easy_install --upgrade supervisor');
             //enabling debian directory structure :
             $this->prootRun('mkdir -p /etc/supervisor/conf.d');
         }
