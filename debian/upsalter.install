@@ -1,3 +1,4 @@
 bin/* usr/share/upsalter/bin/
 src/* usr/share/upsalter/src/
+resources/* usr/share/upsalter/resources/
 vendor/* usr/share/upsalter/vendor/
