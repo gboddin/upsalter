@@ -21,6 +21,8 @@ namespace Upsalter\Distribution {
         {
             $this->enableEpel();
             $this->prootRun('yum install supervisor -y');
+            //enabling debian directory structure :
+            $this->prootRun('mkdir -p /etc/supervisor/conf.d');
         }
 
         public function enableEpel()

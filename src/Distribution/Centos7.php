@@ -16,6 +16,9 @@ namespace Upsalter\Distribution {
 
         public function installSupervisor()
         {
+            $this->prootRun('yum -y install supervisor');
+            //enabling debian directory structure :
+            $this->prootRun('mkdir -p /etc/supervisor/conf.d');
         }
 
         public function getRootFsUrl()
