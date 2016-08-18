@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 require dirname(__DIR__).DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'autoload.php';
-
+define('APP_DIR',dirname(__DIR__));
 use Symfony\Component\Console\Application;
 
 $application = new Application();
