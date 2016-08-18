@@ -1,10 +1,16 @@
+upsalter (0.2.1) unstable; urgency=medium
+
+  * Release 0.2.1
+  * Fixed perm issue on manage script
+
+ -- boddigr <gregory@siwhine.net>  Thu, 18 Aug 2016 11:33:16 +0200
+
 upsalter (0.2) unstable; urgency=medium
 
   * Release 0.2
   * Stable deploy for centos and ubuntu
 
  -- boddigr <gregory@siwhine.net>  Thu, 18 Aug 2016 10:52:16 +0200
-
 upsalter (0.1.6) unstable; urgency=medium
 
   * Release 0.1.6
