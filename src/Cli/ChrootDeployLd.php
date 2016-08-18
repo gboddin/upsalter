@@ -29,7 +29,7 @@ class ChrootDeployLd extends Command
         $user = $input->getArgument('user');
         $server = $input->getArgument('server');
         $location = $input->getArgument('location');
-        $skipStart = $input->getArgument('skip-start');
+        $skipStart = $input->getOption('skip-start');
 
         $cmd = '[ -x '.escapeshellarg($location.DIRECTORY_SEPARATOR.'manage').' ]';
         exec('ssh -l '.escapeshellarg($user).' '.escapeshellarg($server).' -oBatchMode=yes '.escapeshellarg($cmd),$cmdOutput,$rc);
