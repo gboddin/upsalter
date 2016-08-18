@@ -9,7 +9,13 @@ $application = new Application();
 $application->setName('upsalter');
 
 $application->add(
-  new Upsalter\Cli\ChrootBuild()
+    new Upsalter\Cli\ChrootBuild()
+);
+$application->add(
+  new Upsalter\Cli\ChrootDeploy()
 );
 
+$application->add(
+    new Upsalter\Cli\ChrootDeployLd()
+);
 $application->run();
