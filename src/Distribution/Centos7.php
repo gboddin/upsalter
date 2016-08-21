@@ -6,11 +6,11 @@ namespace Upsalter\Distribution {
     class Centos7 extends BaseDistribution
     {
 
-        const ROOTFS_URL = 'https://github.com/gboddin/linux-rootfs/releases/download/latest/centos-7.tar.bz2';
 
         public function installSaltMinion()
         {
             $this->enableEpel();
+            $this->prootRun('rpm -Uvh https://repo.saltstack.com/yum/redhat/salt-repo-latest-1.el7.noarch.rpm');
             $this->prootRun('yum -y install salt-minion');
         }
 
@@ -25,7 +25,7 @@ namespace Upsalter\Distribution {
 
         public function getRootFsUrl()
         {
-            return self::ROOTFS_URL;
+            return 'https://github.com/gboddin/linux-rootfs/releases/download/latest/centos-7.tar.bz2';
         }
 
         public function getAliases()

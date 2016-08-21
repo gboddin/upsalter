@@ -7,6 +7,9 @@ env:
   - DISTRO=centos VERSION=7
   - DISTRO=ubuntu VERSION=trusty
   - DISTRO=ubuntu VERSION=xenial
+  - DISTRO=fedora VERSION=23
+  - DISTRO=fedora VERSION=24
+
 install:
   - composer install
 script:
