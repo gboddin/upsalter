@@ -21,7 +21,8 @@ class ChrootDeployLd extends Command
             ->addArgument('user', InputArgument::REQUIRED, 'Remote user')
             ->addArgument('server', InputArgument::REQUIRED, 'Server to deploy to')
             ->addArgument('location', InputArgument::REQUIRED, 'Remote container directory')
-            ->addOption('skip-start','S',InputOption::VALUE_NONE,'Skip startup of minion (implies -R)');
+            ->addOption('skip-start','S',InputOption::VALUE_NONE,'Skip startup of minion (implies -R)')
+            ->addOption('skip-cron','C',InputOption::VALUE_NONE,'Skip adding the cron entry for reboot');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -30,7 +31,7 @@ class ChrootDeployLd extends Command
         $server = $input->getArgument('server');
         $location = $input->getArgument('location');
         $skipStart = $input->getOption('skip-start');
-
+        $skipCron = $input->getOption('skip-cron');
         $cmd = '[ -x '.escapeshellarg($location.DIRECTORY_SEPARATOR.'manage').' ]';
         exec('ssh -l '.escapeshellarg($user).' '.escapeshellarg($server).' -oBatchMode=yes '.escapeshellarg($cmd),$cmdOutput,$rc);
         if($rc > 0) {
@@ -89,5 +90,21 @@ class ChrootDeployLd extends Command
 
         }
 
+        $minionId = md5($location);
+
+        if(!$skipCron) {
+            $cmd = 'crontab -l|grep -q '.escapeshellarg('SALT_USER_'.$minionId);
+            $cmd = 'ssh -l '.escapeshellarg($user).' '.escapeshellarg($server).' -oBatchMode=yes '.escapeshellarg($cmd);
+            exec($cmd,$cmd,$rc);
+            if($rc > 0) {
+                $cmd = 'crontab -l | { cat; echo "@reboot '.$location.'/manage start-user # SALT_USER_'.$minionId.'"; } | crontab -';
+                $cmd = 'ssh -l '.escapeshellarg($user).' '.escapeshellarg($server).' -oBatchMode=yes '.escapeshellarg($cmd);
+                exec($cmd,$cmd,$rc);
+                if($rc > 0) {
+                    throw new\Exception('Error implementing cron '.$minionId);
+                }
+            }
+
+        }
     }
 }

@@ -14,20 +14,20 @@ my_path=${MY_DIR}/bin:${MY_DIR}/sbin:${MY_DIR}/usr/bin:${MY_DIR}/usr/sbin:${MY_D
 if [ "$1" = "start-minion" ]; then
         echo "Starting root minion supervisor ..."
         HOME=/root SHELL=/bin/bash PATH=/bin:/sbin:/usr/sbin:/usr/bin \
-        ./proot -w /root -b /etc/mtab -b /etc/resolv.conf -b /etc/hostname -b /dev -b /sys -b /proc \
+        ./proot -w /root -b $MY_DIR -b /etc/mtab -b /etc/resolv.conf -b /etc/hostname -b /dev -b /sys -b /proc \
         -r $MY_DIR -0 /usr/bin/supervisord -c /etc/supervisor/supervisord.conf > test.log 2> test2.log &
 fi
 if [ "$1" = "stop-minion" ]; then
         echo "Stopping root minion supervisor ..."
         HOME=/root SHELL=/bin/bash PATH=/bin:/sbin:/usr/sbin:/usr/bin \
-        ./proot -w /root -b /etc/mtab -b /etc/resolv.conf -b /etc/hostname -b /dev -b /sys -b /proc \
+        ./proot -w /root -b $MY_DIR  -b /etc/mtab -b /etc/resolv.conf -b /etc/hostname -b /dev -b /sys -b /proc \
         -r $MY_DIR -0 supervisorctl shutdown
 fi
 if [ "$1" = "admin" ]; then
         echo "Dropping admin shell ..."
         shift
         HOME=/root SHELL=/bin/bash PATH=/bin:/sbin:/usr/sbin:/usr/bin \
-        ./proot -w /root -b /etc/mtab -b /etc/resolv.conf -b /etc/hostname -b /dev -b /sys -b /proc \
+        ./proot -w /root -b $MY_DIR  -b /etc/mtab -b /etc/resolv.conf -b /etc/hostname -b /dev -b /sys -b /proc \
          -r $MY_DIR -0 "$@"
 fi
 

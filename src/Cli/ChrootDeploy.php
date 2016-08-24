@@ -25,7 +25,8 @@ class ChrootDeploy extends Command
             ->addArgument('master', InputArgument::REQUIRED, 'Salt master IP/DNS')
             ->addArgument('id', InputArgument::REQUIRED, 'Minion id')
             ->addOption('no-register-key','R',InputOption::VALUE_NONE,'Disable register trough local salt-key')
-            ->addOption('skip-start','S',InputOption::VALUE_NONE,'Skip startup of minion (implies -R)');
+            ->addOption('skip-start','S',InputOption::VALUE_NONE,'Skip startup of minion (implies -R)')
+            ->addOption('skip-cron','C',InputOption::VALUE_NONE,'Skip adding the cron entry for reboot');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -37,6 +38,7 @@ class ChrootDeploy extends Command
         $master = $input->getArgument('master');
         $minionId = $input->getArgument('id');
         $skipRegister = $input->getOption('no-register-key');
+        $skipCron = $input->getOption('no-register-key');
         $skipStart = $skipRegister ? $skipRegister : $input->getOption('skip-start');
 
         if(!file_exists($input->getArgument('package'))) {
@@ -140,6 +142,21 @@ class ChrootDeploy extends Command
             if(!$skipRegister) {
                 //register logic here !
             }
+        }
+
+        if(!$skipCron) {
+            $cmd = 'crontab -l|grep -q '.escapeshellarg('SALT_'.$minionId);
+            $cmd = 'ssh -l '.escapeshellarg($user).' '.escapeshellarg($server).' -oBatchMode=yes '.escapeshellarg($cmd);
+            exec($cmd,$cmd,$rc);
+            if($rc > 0) {
+                $cmd = 'crontab -l | { cat; echo "@reboot '.$finalLocation.'/manage start-minion # SALT_'.$minionId.'"; } | crontab -';
+                $cmd = 'ssh -l '.escapeshellarg($user).' '.escapeshellarg($server).' -oBatchMode=yes '.escapeshellarg($cmd);
+                exec($cmd,$cmd,$rc);
+                if($rc > 0) {
+                    throw new\Exception('Error implementing cron '.$minionId);
+                }
+            }
+
         }
 
     }
