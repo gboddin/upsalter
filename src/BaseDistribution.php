@@ -15,6 +15,8 @@ namespace Upsalter {
 
         private $rootDir;
 
+        private $saltPlugins;
+
         /**
          * @return string Rootfs url
          */
@@ -77,6 +79,7 @@ namespace Upsalter {
 
                 $this->installSaltMinion();
                 $this->installSupervisor();
+                $this->installSaltPlugins();
 
                 $this->clean();
                 $this->package($this->rootDir, $target);
@@ -85,6 +88,25 @@ namespace Upsalter {
                 var_dump($this);
                 throw $e;
             }
+        }
+
+        public function addSaltPlugins($plugins) {
+            $this->saltPlugins = $plugins;
+        }
+
+        private function installSaltPlugins() {
+            $this->prootRun('mkdir -p /srv/salt');
+
+            foreach($this->saltPlugins as $plugin) {
+                copy(APP_DIR.DIRECTORY_SEPARATOR.'resources/salt-plugins/'.$plugin.'.sls',
+                    $this->rootDir.'/tmp/'.$plugin.'.sls');
+            }
+
+            foreach($this->saltPlugins as $plugin) {
+                $this->prootRun('salt-call --local state.sls '.$plugin);
+            }
+
+
         }
 
         public function prootRun($cmd)

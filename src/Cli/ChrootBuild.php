@@ -20,7 +20,8 @@ class ChrootBuild extends Command
             ->setDescription('Creates new chroot package (tar.bz2)')
             ->addArgument('distribution', InputArgument::REQUIRED, 'Which distribution to build')
             ->addArgument('version', InputArgument::REQUIRED, 'Which distribution version to build')
-            ->addArgument('target', InputArgument::REQUIRED, 'Target tarball (tar.bz2)');
+            ->addArgument('target', InputArgument::REQUIRED, 'Target tarball (tar.bz2)')
+            ->addOption('plugin','p',InputOption::VALUE_OPTIONAL + InputOption::VALUE_IS_ARRAY);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -28,8 +29,11 @@ class ChrootBuild extends Command
         $distroManager = new DistributionManager();
         $distributionName = $input->getArgument('distribution');
         $distributionVersion = $input->getArgument('version');
+        $plugins = $input->getOption('plugin');
 
         $distro = $distroManager->getDistro($distributionName, $distributionVersion);
+
+        $distro->addSaltPlugins($plugins);
 
         $distro->build(
             $input->getArgument('target')
