@@ -141,9 +141,7 @@ namespace Upsalter {
         public function package($dir, $target)
         {
             // Fix bad permissions :
-            $this->prootRun('find / ! -readable -ls');
-            exit(1);
-            exec('find '.escapeshellarg($dir).' -perm 000 -exec chmod 400 {} \;');
+            exec('find '.escapeshellarg($dir).' -exec chmod u+r {} \;');
             exec('tar -cjC '.
                 escapeshellarg($dir).' . > '.escapeshellarg($target), $output, $rc);
             if ($rc > 0) {
