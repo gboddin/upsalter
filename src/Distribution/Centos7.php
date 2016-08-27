@@ -54,7 +54,6 @@ namespace Upsalter\Distribution {
         public function enableEpel()
         {
             $this->prootRun('rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm');
-            $this->prootRun('rpm -Uvh https://repo.saltstack.com/yum/redhat/salt-repo-latest-1.el7.noarch.rpm');
         }
     }
 }
