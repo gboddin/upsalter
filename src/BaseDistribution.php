@@ -96,15 +96,18 @@ namespace Upsalter {
 
         private function installSaltPlugins() {
             $this->prootRun('mkdir -p /srv/salt');
+            copy(APP_DIR.DIRECTORY_SEPARATOR.'resources/salt-top.sls',$this->rootDir.'/srv/salt/top.sls');
 
             foreach($this->saltPlugins as $plugin) {
                 copy(APP_DIR.DIRECTORY_SEPARATOR.'resources/salt-plugins/'.$plugin.'.sls',
-                    $this->rootDir.'/tmp/'.$plugin.'.sls');
+                    $this->rootDir.'/srv/salt/'.$plugin.'.sls');
+                file_put_contents($this->rootDir.'/srv/salt/top.sls','    - '.$plugin.PHP_EOL,FILE_APPEND);
             }
 
-            foreach($this->saltPlugins as $plugin) {
-                $this->prootRun('salt-call --local state.sls '.$plugin);
-            }
+
+            if(count($this->saltPlugins) > 0)
+                $this->prootRun('salt-call --local state.apply');
+
 
 
         }

@@ -1,24 +1,11 @@
-{% set config = salt['grains.filter_by']({
-    'Debian': {
-        'repo': False
-    },
-    'RedHat': {
-        'repo': 'http://repo.siwhine.net/el/'
-    },
-}) %}
-
-{% if config.repo %}
+{% if grains['os_family'] == 'RedHat' %}
 
 edge-repo:
   # repository :
   pkgrepo.managed:
-    - humanname: CentOS-$releasever - Edge repo
-    - baseurl: http://repo.siwhine.net/{{ grains['osfinger'].tolower() }}
+    - humanname: {{ grains['os'] }}-$releasever - Edge repo
+    - baseurl: http://repo.siwhine.net/{{ grains['osfinger']|lower() }}
     - gpgcheck: 1
     - gpgkey: http://repo.siwhine.net/EDGE-REPO-KEY.pub
-
-git-installed:
-  pkg.installed:
-    - name: git
 
 {% endif %}

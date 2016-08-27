@@ -34,7 +34,6 @@ class ChrootBuild extends Command
         $distro = $distroManager->getDistro($distributionName, $distributionVersion);
 
         $distro->addSaltPlugins($plugins);
-
         $distro->build(
             $input->getArgument('target')
         );

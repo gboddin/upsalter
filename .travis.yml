@@ -3,17 +3,23 @@ php:
 - 7.0
 env:
   matrix:
-  - DISTRO=centos VERSION=6
-  - DISTRO=centos VERSION=7
-  - DISTRO=ubuntu VERSION=trusty
-  - DISTRO=ubuntu VERSION=xenial
-  - DISTRO=fedora VERSION=23
-  - DISTRO=fedora VERSION=24
+  - DISTRO=centos VERSION=6 FLAVOR="salted"
+  - DISTRO=centos VERSION=6 FLAVOR="buildenv" BUILD_SETTINGS="-p edge-repo -p build-env"
+  - DISTRO=centos VERSION=7 FLAVOR="salted"
+  - DISTRO=centos VERSION=7 FLAVOR="buildenv" BUILD_SETTINGS="-p edge-repo -p build-env"
+  - DISTRO=fedora VERSION=23 FLAVOR="salted"
+  - DISTRO=fedora VERSION=23 FLAVOR="buildenv" BUILD_SETTINGS="-p edge-repo -p build-env"
+  - DISTRO=fedora VERSION=24 FLAVOR="salted"
+  - DISTRO=fedora VERSION=24 FLAVOR="buildenv" BUILD_SETTINGS="-p edge-repo -p build-env"
+  - DISTRO=ubuntu VERSION=trusty FLAVOR="salted"
+  - DISTRO=ubuntu VERSION=trusty FLAVOR="build-env" BUILD_SETTINGS="-p build-env"
+  - DISTRO=ubuntu VERSION=xenial FLAVOR="salted"
+  - DISTRO=ubuntu VERSION=xenial FLAVOR="build-env" BUILD_SETTINGS="-p build-env"
 
 install:
   - composer install
 script:
-  - "./bin/upsalter chroot:build ${DISTRO} ${VERSION} ${DISTRO}-${VERSION}-rootfs-salted.tar.bz2"
+  - "./bin/upsalter chroot:build ${DISTRO} ${VERSION} ${DISTRO}-${VERSION}-rootfs-${FLAVOR}.tar.bz2 ${BUILD_SETTINGS}"
 before_deploy:
   - export RELEASE_PKG_FILE=$(ls *.bz2)
   - echo "deploying $RELEASE_PKG_FILE to GitHub releases"

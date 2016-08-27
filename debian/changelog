@@ -1,3 +1,17 @@
+upsalter (0.4) unstable; urgency=medium
+
+  * Release 0.4
+  * Added Saltstack plugin support
+
+ -- boddigr <gregory@siwhine.net>  Sat, 27 Aug 2016 11:12:16 +0200
+
+upsalter (0.3.1) unstable; urgency=medium
+
+  * Release 0.3.1
+  * Added cron script updates
+
+ -- boddigr <gregory@siwhine.net>  Wed, 24 Aug 2016 15:33:16 +0200
+
 upsalter (0.2.3) unstable; urgency=medium
 
   * Release 0.2.3
