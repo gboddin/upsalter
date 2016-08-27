@@ -141,6 +141,8 @@ namespace Upsalter {
         public function package($dir, $target)
         {
             // Fix bad permissions :
+            $this->prootRun('ls -lha  /usr/bin/ssh-agent /usr/libexec/openssh/ssh-keysign');
+            exit(1);
             exec('find '.escapeshellarg($dir).' -perm 000 -exec chmod 400 {} \;');
             exec('tar -cjC '.
                 escapeshellarg($dir).' . > '.escapeshellarg($target), $output, $rc);
