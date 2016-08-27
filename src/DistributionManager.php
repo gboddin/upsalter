@@ -5,7 +5,7 @@ namespace Upsalter {
     {
         private $distros = array();
 
-        public function __construct()
+        public function __construct($logger)
         {
             $distros = glob(__DIR__.DIRECTORY_SEPARATOR.'Distribution'.DIRECTORY_SEPARATOR.'*.php');
             foreach ($distros as $distro) {
@@ -13,7 +13,7 @@ namespace Upsalter {
                 $distro = str_replace('.php', '', $distro);
                 $distro = str_replace('/', '\\', $distro);
                 $distro = '\\Upsalter'.$distro;
-                $this->distros[] = new $distro;
+                $this->distros[] = new $distro($logger);
             }
         }
 

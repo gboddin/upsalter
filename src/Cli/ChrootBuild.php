@@ -6,6 +6,7 @@ use \Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use \Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Logger\ConsoleLogger;
 use \Symfony\Component\Console\Output\OutputInterface;
 use Upsalter\DistributionManager;
 
@@ -26,7 +27,8 @@ class ChrootBuild extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $distroManager = new DistributionManager();
+        $logger = new ConsoleLogger($output);
+        $distroManager = new DistributionManager($logger);
         $distributionName = $input->getArgument('distribution');
         $distributionVersion = $input->getArgument('version');
         $plugins = $input->getOption('plugin');
