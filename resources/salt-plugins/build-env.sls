@@ -8,6 +8,6 @@ build-env-packages:
       - rpm-build
       - rpmdevtools
       - make
-{% elif grains['os_family'] == 'Debian '%}
+{% elif grains['os_family'] == 'Debian' %}
       - build-essential
 {% endif %}
