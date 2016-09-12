@@ -28,7 +28,8 @@ class ChrootDeploy extends Command
             ->addOption('no-register-key','R',InputOption::VALUE_NONE,'Disable register trough local salt-key')
             ->addOption('skip-start','S',InputOption::VALUE_NONE,'Skip startup of minion (implies -R)')
             ->addOption('skip-cron','C',InputOption::VALUE_NONE,'Skip adding the cron entry for reboot')
-            ->addOption('proot-args','P',InputOption::VALUE_OPTIONAL,'Additionals proot arguments');
+            ->addOption('proot-mounts','b',InputOption::VALUE_OPTIONAL + InputOption::VALUE_IS_ARRAY,
+                'Additionals proot mounts (eg : /ec or /etc:/etc-host');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -42,7 +43,7 @@ class ChrootDeploy extends Command
         $skipRegister = $input->getOption('no-register-key');
         $skipCron = $input->getOption('no-register-key');
         $skipStart = $skipRegister ? $skipRegister : $input->getOption('skip-start');
-        $prootArgs = $input->getOption('proot-args');
+        $prootMounts = $input->getOption('proot-mounts');
 
         if(!file_exists($input->getArgument('package'))) {
             throw new \Exception('Package not found');
@@ -87,7 +88,7 @@ class ChrootDeploy extends Command
             throw new\Exception('Manage script '.$minionId.' deploy failed');
         }
 
-        $cmd = 'chmod 700 '.escapeshellarg($finalLocation.DIRECTORY_SEPARATOR.'manage');
+        $cmd = 'chmod 755 '.escapeshellarg($finalLocation.DIRECTORY_SEPARATOR.'manage');
         $cmd = 'ssh -l '.escapeshellarg($user).' '.escapeshellarg($server).' -oBatchMode=yes '.escapeshellarg($cmd);
         exec($cmd,$cmd,$rc);
         if($rc > 0) {
@@ -132,10 +133,16 @@ class ChrootDeploy extends Command
             throw new\Exception('Minion ID config '.$minionId.' deploy failed');
         }
 
+        $prootArgs = '';
+
+        foreach($prootMounts as $prootMount) {
+            $prootArgs .= " -b ".escapeshellarg($prootMount).' ';
+        }
+
         if(!empty($prootArgs)) {
             $tempMinionConfigFile = tempnam(sys_get_temp_dir(),'proot-config');
 
-            file_put_contents($tempMinionConfigFile,'export PROOT_ARGS= '.escapeshellarg($prootArgs).PHP_EOL,FILE_APPEND);
+            file_put_contents($tempMinionConfigFile,'export PROOT_ARGS='.escapeshellarg($prootArgs).PHP_EOL,FILE_APPEND);
 
             $cmd = 'scp '.escapeshellarg($tempMinionConfigFile).' '.escapeshellarg(
                     $user.'@'.$server.':'.$finalLocation.DIRECTORY_SEPARATOR.'proot.cfg');

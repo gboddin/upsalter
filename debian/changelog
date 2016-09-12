@@ -1,3 +1,52 @@
+upsalter (0.5.6) unstable; urgency=medium
+
+  * Release 0.5.6
+  * Placing run files in own folder as well
+
+ -- boddigr <gregory@siwhine.net>  Mon, 12 Sep 2016 15:00:16 +0200
+
+upsalter (0.5.5) unstable; urgency=medium
+
+  * Release 0.5.5
+
+ -- boddigr <gregory@siwhine.net>  Mon, 12 Sep 2016 14:12:16 +0200
+
+upsalter (0.5.4) unstable; urgency=medium
+
+  * Release 0.5.4
+  * Fix so manage can be run by ld-user as well
+
+ -- boddigr <gregory@siwhine.net>  Mon, 12 Sep 2016 14:12:16 +0200
+
+upsalter (0.5.3) unstable; urgency=medium
+
+  * Release 0.5.3
+  * Fix space issue in passwd args
+
+ -- boddigr <gregory@siwhine.net>  Mon, 12 Sep 2016 13:12:16 +0200
+
+upsalter (0.5.2) unstable; urgency=medium
+
+  * Release 0.5.2
+  * Fix escape issue in proot args
+
+ -- boddigr <gregory@siwhine.net>  Mon, 12 Sep 2016 13:12:16 +0200
+
+upsalter (0.5.1) unstable; urgency=medium
+
+  * Release 0.5.1
+  * Fix escape issue in proot args
+
+ -- boddigr <gregory@siwhine.net>  Mon, 12 Sep 2016 12:12:18 +0200
+
+upsalter (0.5) unstable; urgency=medium
+
+  * Release 0.5
+  * Now syncing passwd file
+  * chroot:deploy-ld-user now requires admin username
+
+ -- boddigr <gregory@siwhine.net>  Mon, 12 Sep 2016 12:12:16 +0200
+
 upsalter (0.4.2) unstable; urgency=medium
 
   * Release 0.4.2
