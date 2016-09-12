@@ -8,6 +8,7 @@ build-env-packages:
       - rpm-build
       - rpmdevtools
       - make
+      - gcc-c++
 {% elif grains['os_family'] == 'Debian' %}
       - build-essential
 {% endif %}

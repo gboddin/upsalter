@@ -1,3 +1,11 @@
+upsalter (0.4.1) unstable; urgency=medium
+
+  * Release 0.4.1
+  * Added gcc-c++ in buil-env for redhat
+  * Added custom proot arguments on deploy
+
+ -- boddigr <gregory@siwhine.net>  Mon, 12 Sep 2016 11:12:16 +0200
+
 upsalter (0.4) unstable; urgency=medium
 
   * Release 0.4

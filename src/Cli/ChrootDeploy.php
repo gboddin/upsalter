@@ -3,6 +3,7 @@
 namespace Upsalter\Cli;
 
 use \Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\Input;
 use Symfony\Component\Console\Input\InputArgument;
 use \Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -26,7 +27,8 @@ class ChrootDeploy extends Command
             ->addArgument('id', InputArgument::REQUIRED, 'Minion id')
             ->addOption('no-register-key','R',InputOption::VALUE_NONE,'Disable register trough local salt-key')
             ->addOption('skip-start','S',InputOption::VALUE_NONE,'Skip startup of minion (implies -R)')
-            ->addOption('skip-cron','C',InputOption::VALUE_NONE,'Skip adding the cron entry for reboot');
+            ->addOption('skip-cron','C',InputOption::VALUE_NONE,'Skip adding the cron entry for reboot')
+            ->addOption('proot-args','P',InputOption::VALUE_OPTIONAL,'Additionals proot arguments');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -40,6 +42,7 @@ class ChrootDeploy extends Command
         $skipRegister = $input->getOption('no-register-key');
         $skipCron = $input->getOption('no-register-key');
         $skipStart = $skipRegister ? $skipRegister : $input->getOption('skip-start');
+        $prootArgs = $input->getOption('proot-args');
 
         if(!file_exists($input->getArgument('package'))) {
             throw new \Exception('Package not found');
@@ -129,7 +132,23 @@ class ChrootDeploy extends Command
             throw new\Exception('Minion ID config '.$minionId.' deploy failed');
         }
 
+        if(!empty($prootArgs)) {
+            $tempMinionConfigFile = tempnam(sys_get_temp_dir(),'proot-config');
+
+            file_put_contents($tempMinionConfigFile,'export PROOT_ARGS= '.escapeshellarg($prootArgs).PHP_EOL,FILE_APPEND);
+
+            $cmd = 'scp '.escapeshellarg($tempMinionConfigFile).' '.escapeshellarg(
+                    $user.'@'.$server.':'.$finalLocation.DIRECTORY_SEPARATOR.'proot.cfg');
+            exec($cmd,$cmd,$rc);
+            if($rc > 0) {
+                throw new\Exception('Proot config '.$minionId.' deploy failed');
+            }
+            unlink($tempMinionConfigFile);
+        }
+
         $output->writeln('<info>Container configuration for '.$minionId.' deployed</info>');
+
+
 
         if(!$skipStart) {
             $cmd = escapeshellarg($finalLocation.'/manage').' start-minion';
