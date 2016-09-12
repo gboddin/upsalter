@@ -1,3 +1,10 @@
+upsalter (0.4.2) unstable; urgency=medium
+
+  * Release 0.4.2
+  * Fix proot run issue
+
+ -- boddigr <gregory@siwhine.net>  Mon, 12 Sep 2016 12:12:16 +0200
+
 upsalter (0.4.1) unstable; urgency=medium
 
   * Release 0.4.1
