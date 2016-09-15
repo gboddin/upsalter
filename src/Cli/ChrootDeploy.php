@@ -142,7 +142,7 @@ class ChrootDeploy extends Command
         if(!empty($prootArgs)) {
             $tempMinionConfigFile = tempnam(sys_get_temp_dir(),'proot-config');
 
-            file_put_contents($tempMinionConfigFile,'export PROOT_ARGS='.escapeshellarg($prootArgs).PHP_EOL,FILE_APPEND);
+            file_put_contents($tempMinionConfigFile,'export PROOT_ARGS='.$prootArgs.PHP_EOL,FILE_APPEND);
 
             $cmd = 'scp '.escapeshellarg($tempMinionConfigFile).' '.escapeshellarg(
                     $user.'@'.$server.':'.$finalLocation.DIRECTORY_SEPARATOR.'proot.cfg');
