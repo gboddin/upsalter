@@ -3,6 +3,8 @@ php:
 - 7.0
 env:
   matrix:
+  - DISTRO=centos VERSION=5 FLAVOR="salted"
+  - DISTRO=centos VERSION=5 FLAVOR="buildenv" BUILD_SETTINGS="-p edge-repo -p build-env"
   - DISTRO=centos VERSION=6 FLAVOR="salted"
   - DISTRO=centos VERSION=6 FLAVOR="buildenv" BUILD_SETTINGS="-p edge-repo -p build-env"
   - DISTRO=centos VERSION=7 FLAVOR="salted"
