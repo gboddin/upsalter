@@ -28,12 +28,12 @@ namespace Upsalter\Distribution {
         public function enableEpel()
         {
             if(!$this->epelEnabled)
-                $this->prootRun('rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-5.noarch.rpm');
-            $this->epelEnabled = true;
+                $this->prootRun('rpm -Uvh http://dl.fedoraproject.org/pub/epel/epel-release-latest-5.noarch.rpm');
+                $this->epelEnabled = true;
         }
 
         public function init() {
-
+          $this->prootRun('yum update');
         }
 
         public function clean() {
