@@ -185,7 +185,7 @@ namespace Upsalter {
         {
             $this->logger->debug('prootRun : '.$cmd);
             passthru('PATH=/bin:/sbin:/usr/bin:/usr/sbin '.
-                $this->rootDir.DIRECTORY_SEPARATOR.'proot -S '.escapeshellarg($this->rootDir).' sh -axc '.escapeshellarg($cmd), $rc);
+                $this->rootDir.DIRECTORY_SEPARATOR.'proot -b /etc/mtab -b /etc/resolv.conf -b /etc/hostname -b /dev -b /sys -b /proc -w /root -0 -r '.escapeshellarg($this->rootDir).' sh -axc '.escapeshellarg($cmd), $rc);
             if($rc > 0) {
                 throw new \Exception('Proot run failed !');
             }
