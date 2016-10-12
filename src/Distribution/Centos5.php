@@ -11,7 +11,7 @@ namespace Upsalter\Distribution {
         public function installSaltMinion()
         {
             $this->enableEpel();
-            $this->prootRun('rpm -Uvh https://repo.saltstack.com/yum/redhat/salt-repo-latest-1.el5.noarch.rpm');
+            $this->prootRun('rpm -Uvh http://repo.saltstack.com/yum/redhat/salt-repo-latest-1.el5.noarch.rpm');
             $this->prootRun('yum -y install salt-minion');
         }
 
