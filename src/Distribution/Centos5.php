@@ -33,7 +33,7 @@ namespace Upsalter\Distribution {
         }
 
         public function init() {
-          $this->prootRun('yum update');
+          $this->prootRun('yum update -y');
         }
 
         public function clean() {
