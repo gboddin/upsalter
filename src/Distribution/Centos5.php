@@ -12,13 +12,14 @@ namespace Upsalter\Distribution {
         {
             $this->enableEpel();
             $this->prootRun('rpm -Uvh http://repo.saltstack.com/yum/redhat/salt-repo-latest-1.el5.noarch.rpm');
+            $this->prootRun('yum update -y');
             $this->prootRun('yum -y install salt-minion');
         }
 
         public function installSupervisor()
         {
             $this->enableEpel();
-            $this->prootRun('yum install python-pip -y');
+            $this->prootRun('yum install python26-pip -y');
             $this->prootRun('easy_install --upgrade supervisor');
             //enabling debian directory structure :
             $this->prootRun('mkdir -p /etc/supervisor/conf.d');
