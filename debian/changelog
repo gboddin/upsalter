@@ -1,3 +1,9 @@
+upsalter (0.6.2) unstable; urgency=medium
+  * Release 0.6.2
+  * Bugfix
+
+ -- boddigr <gregory@siwhine.net>  Mon, 12 Dec 2016 16:25:16 +0100
+
 upsalter (0.6.1) unstable; urgency=medium
   * Release 0.6.1
   * Added ssh mass reset

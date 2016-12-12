@@ -7,7 +7,7 @@ set username [lindex $argv 1]
 set password [lindex $argv 2]
 set newpassword [lindex $argv 3]
 
-spawn ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no $serverid passwd
+spawn ssh -t -l $username -o StrictHostKeyChecking=no -o PreferredAuthentications=password -o PubkeyAuthentication=no $serverid passwd
 expect "assword:"
 send "$password\r"
 expect "UNIX password:"
