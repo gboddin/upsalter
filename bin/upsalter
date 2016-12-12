@@ -18,4 +18,9 @@ $application->add(
 $application->add(
     new Upsalter\Cli\ChrootDeployLd()
 );
+
+$application->add(
+    new Upsalter\Cli\SshInit()
+);
+
 $application->run();

@@ -1,9 +1,21 @@
+upsalter (0.6.1) unstable; urgency=medium
+  * Release 0.6.1
+  * Added ssh mass reset
+
+ -- boddigr <gregory@siwhine.net>  Mon, 12 Dec 2016 16:25:16 +0100
+
+upsalter (0.6.0-alpha1) unstable; urgency=medium
+  * Release 0.6 alpha
+  * Added el5 support
+
+ -- boddigr <gregory@siwhine.net>  Wed, 12 Oct 2016 14:50:16 +0200
+
 upsalter (0.5.9) unstable; urgency=medium
 
   * Release 0.5.9
   * Fix shellescape on proot binds
 
- -- boddigr <gregory@siwhine.net>  Mon, 13 Sep 2016 11:50:16 +0200
+-- boddigr <gregory@siwhine.net>  Mon, 13 Sep 2016 11:50:16 +0200
 
 upsalter (0.5.7) unstable; urgency=medium
 
