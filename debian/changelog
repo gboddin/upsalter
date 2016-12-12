@@ -1,8 +1,9 @@
 upsalter (0.6.2) unstable; urgency=medium
   * Release 0.6.2
   * Bugfix
+  * Displaying password on output
 
- -- boddigr <gregory@siwhine.net>  Mon, 12 Dec 2016 16:25:16 +0100
+ -- boddigr <gregory@siwhine.net>  Mon, 12 Dec 2016 17:25:16 +0100
 
 upsalter (0.6.1) unstable; urgency=medium
   * Release 0.6.1
