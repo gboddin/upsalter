@@ -88,8 +88,8 @@ class SshInit extends Command
                         throw new \Exception('Authentication to '.$serverToReset[0].' failed');
                     }
                     $sftpService = ssh2_sftp($sshConnection);
-                    ssh2_sftp_mkdir($sftpService, '~/.ssh',0700);
-                    if(!ssh2_scp_send($sshConnection, $authFile, '~/.ssh/authorized_keys', 0600)) {
+                    ssh2_sftp_mkdir($sftpService, '.ssh',0750);
+                    if(!ssh2_scp_send($sshConnection, $authFile, '.ssh/authorized_keys', 0640)) {
                         throw new \Exception('SSH key drop to '.$serverToReset[0].' failed');
                     }
                 }
