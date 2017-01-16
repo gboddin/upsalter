@@ -42,7 +42,7 @@ namespace Upsalter\Distribution {
 
         public function getRootFsUrl()
         {
-            return 'https://github.com/gboddin/linux-rootfs/releases/download/latest/centos-6.8.tar.bz2';
+            return 'https://github.com/gboddin/linux-rootfs/releases/download/20170116/centos-6.8.tar.bz2';
         }
 
         public function getAliases()

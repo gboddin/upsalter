@@ -5,7 +5,7 @@ namespace Upsalter\Distribution {
 
     class UbuntuTrusty extends BaseDistribution
     {
-        const ROOTFS_URL = 'https://github.com/gboddin/linux-rootfs/releases/download/latest/ubuntu-trusty.tar.bz2';
+        const ROOTFS_URL = 'https://github.com/gboddin/linux-rootfs/releases/download/20170116/ubuntu-trusty.tar.bz2';
 
         public function getRootFsUrl()
         {

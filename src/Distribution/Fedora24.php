@@ -8,7 +8,7 @@ namespace Upsalter\Distribution {
 
         public function getRootFsUrl()
         {
-            return 'https://github.com/gboddin/linux-rootfs/releases/download/latest/fedora-24.tar.bz2';
+            return 'https://github.com/gboddin/linux-rootfs/releases/download/20170116/fedora-24.tar.bz2';
         }
 
         public function getVersions()

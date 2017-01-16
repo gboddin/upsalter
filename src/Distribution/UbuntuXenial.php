@@ -5,7 +5,7 @@ namespace Upsalter\Distribution {
 
     class UbuntuXenial extends BaseDistribution
     {
-        const ROOTFS_URL = 'https://github.com/gboddin/linux-rootfs/releases/download/latest/ubuntu-xenial.tar.bz2';
+        const ROOTFS_URL = 'https://github.com/gboddin/linux-rootfs/releases/download/20170116/ubuntu-xenial.tar.bz2';
 
         public function getRootFsUrl()
         {
