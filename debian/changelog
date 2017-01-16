@@ -1,3 +1,8 @@
+upsalter (0.6.3) unstable; urgency=medium
+  * Release 0.6.3
+  * Using latest rootfs images
+  * Fixed travis-ci integration
+
 upsalter (0.6.2) unstable; urgency=medium
   * Release 0.6.2
   * Bugfix
