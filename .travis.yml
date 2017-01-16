@@ -22,13 +22,10 @@ install:
   - composer install
 script:
   - "./bin/upsalter chroot:build ${DISTRO} ${VERSION} ${DISTRO}-${VERSION}-rootfs-${FLAVOR}.tar.bz2 ${BUILD_SETTINGS} -vvv"
-before_deploy:
-  - export RELEASE_PKG_FILE=$(ls *.bz2)
-  - echo "deploying $RELEASE_PKG_FILE to GitHub releases"
-
 deploy:
   file_glob: true
-  file: "${RELEASE_PKG_FILE}"
+  skip_cleanup: true
+  file: ${HOME}/build/${TRAVIS_REPO_SLUG}/*.bz2 
   on:
     tags: true
   provider: releases
