@@ -1,7 +1,15 @@
+upsalter (0.7) unstable; urgency=medium
+  * Release 0.7
+  * Switched to final FPFIS repo
+
+ -- boddigr <gregory@siwhine.net>  Mon, 30 Jan 2017 12:39:00 +0200
+
 upsalter (0.6.3) unstable; urgency=medium
   * Release 0.6.3
   * Using latest rootfs images
   * Fixed travis-ci integration
+
+ -- boddigr <gregory@siwhine.net>  Mon, 16 Jan 2017 12:25:16 +0100
 
 upsalter (0.6.2) unstable; urgency=medium
   * Release 0.6.2
