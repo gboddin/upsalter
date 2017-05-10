@@ -1,4 +1,5 @@
 {
+        "name": "gboddin/upsalter",
     "require": {
         "symfony/console": "^3.1",
         "psr/log": "^1.0",
